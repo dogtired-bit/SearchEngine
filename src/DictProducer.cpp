@@ -1,11 +1,13 @@
 #include "../include/DictProducer.hpp"
 #include <sys/types.h>
+#include <unistd.h>
 #include <dirent.h>
 #include <string.h>
 #include <fstream>
 #include <sstream>
 
 using std::ifstream;
+using std::ofstream;
 using std::istringstream;
 
 DictProducer::DictProducer(const string &dir)//英文语料目录
@@ -85,4 +87,21 @@ void DictProducer::buildEnDictAndIndex()
             ++cnt;
         }
     }
+    ifs.close(ifs);
+}
+
+//存储英文词典
+void DictProducer::storeEnDict()
+{
+    ofstream ofs("../data/dict/en_dict.dat"); 
+    if(!ofs)
+    {
+        perror("ofstream open file error");
+        return;
+    }
+    for(auto &word:_dict)
+    {
+        ofs << word.first << " " << word.second << "\n";
+    }
+    ofs.close(ofs);
 }

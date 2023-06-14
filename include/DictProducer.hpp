@@ -19,7 +19,6 @@ public:
     void storeEnDict();             //存储英文词典
     void preProcessLine(string &line);
 
-
 private:
     vector<string> _files;
     map<string,int> _dict;
